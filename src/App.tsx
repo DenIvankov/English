@@ -2,7 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import ButtunsNanigation from "./components/buttons/ButtunsNanigation";
+import ButtunsNavigation from "./components/buttons/ButtunsNavigation";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -10,7 +10,7 @@ function App() {
   return (
     <>
       <div>
-        <ButtunsNanigation />
+        <ButtunsNavigation />
       </div>
     </>
   );
