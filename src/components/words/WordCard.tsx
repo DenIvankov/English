@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { IconCheck, IconStar } from "@tabler/icons-react";
 import WordAudio from "./WordAudio";
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { IconCheck, IconStar } from "@tabler/icons-react";
 
 type WordsFiltersProps = {

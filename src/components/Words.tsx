@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { wordsStore } from "../store/wordsStore";
 import WordCard from "./words/WordCard";
 import WordsFilters from "./words/WordsFilters";
