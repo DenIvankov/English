@@ -27,8 +27,7 @@ type WordType = {
 };
 
 function Words() {
-  const apiBase =
-    (import.meta.env.VITE_API_URL as string) || "http://155.212.161.245:3000";
+  const apiBase = (import.meta.env.VITE_API_URL as string) || "/api";
   const assetsBase = (import.meta.env.VITE_ASSETS_URL as string) || apiBase;
   const {
     words,

@@ -47,8 +47,7 @@ type wordsStoreType = {
   prevPage: () => void;
   nextPage: () => void;
 };
-const API_BASE =
-  (import.meta.env.VITE_API_URL as string) || "http://155.212.161.245:3000";
+const API_BASE = (import.meta.env.VITE_API_URL as string) || "/api";
 
 export const wordsStore = create<wordsStoreType>()(
   persist(
