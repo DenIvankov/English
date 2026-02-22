@@ -1,7 +1,8 @@
+import type { ReactNode } from "react";
 import {
   ActionIcon,
   Avatar,
-  Container,
+  Divider,
   Group,
   Stack,
   Switch,
@@ -12,99 +13,103 @@ import {
   IconBell,
   IconBook,
   IconChevronRight,
+  IconLogout,
   IconMessageCircle,
   IconSettings,
   IconUser,
 } from "@tabler/icons-react";
-import "../styles/profilePage.css";
-
 import { useNavigate } from "react-router";
 import { authStore } from "../store/authStore";
-import { useEffect } from "react";
+import ButtonsNavigation from "../components/buttons/ButtunsNavigation";
+import "../styles/profilePage.css";
 
 function ProfilePage() {
-  const { login } = authStore();
+  const { logout } = authStore();
   const navigate = useNavigate();
+
   const ProfileItem = ({
     icon,
     label,
   }: {
-    icon: React.ReactNode;
+    icon: ReactNode;
     label: string;
   }) => (
-    <button className="profile-item">
+    <button className="profile-item" type="button">
       <div className="profile-item-left">
-        {icon}
+        <div className="profile-icon">{icon}</div>
         <span>{label}</span>
       </div>
       <IconChevronRight size={18} stroke={1.5} />
     </button>
   );
-  useEffect(() => {
-    login("user@example.com", "password123");
-  }, []);
+
   return (
     <div className="profile-page">
       <div className="profile-wrapper">
-        {/* Header */}
         <div className="profile-header">
           <Group justify="space-between">
             <ActionIcon
               onClick={() => navigate("/main")}
               variant="subtle"
-              color="gray"
+              radius="xl"
+              className="profile-action"
             >
               <IconArrowLeft size={20} />
             </ActionIcon>
 
-            <Text fw={600}>Profile</Text>
+            <Text fw={700} size="sm" c="rgba(255,255,255,0.7)">
+              PROFILE
+            </Text>
 
-            <ActionIcon variant="subtle" color="gray">
+            <ActionIcon variant="subtle" radius="xl" className="profile-action">
               <IconSettings size={20} />
             </ActionIcon>
           </Group>
 
-          <div className="profile-user">
+          <div className="profile-user-card">
             <Avatar
-              size={72}
+              size={84}
               radius="xl"
               src="https://freesvg.org/img/FacelessMan.png"
             />
-            <Stack gap={2}>
-              <Text fw={600} size="lg">
+            <Stack gap={4} align="center">
+              <Text fw={600} size="xl" c="white">
                 Alex Johnson
               </Text>
-              <Text size="sm" c="dimmed">
+              <Text size="sm" c="rgba(255,255,255,0.72)">
                 Intermediate English Learner
               </Text>
             </Stack>
           </div>
         </div>
 
-        {/* Sections */}
-        <div className="profile-section">
-          <div className="section-title">Account</div>
+        <div className="premium-card">
+          <div className="card-title">Account</div>
 
-          <ProfileItem
-            icon={<IconUser size={20} />}
-            label="Personal Information"
-          />
-          <ProfileItem icon={<IconBook size={20} />} label="My Courses" />
-          <ProfileItem
-            icon={<IconMessageCircle size={20} />}
-            label="Practice History"
-          />
+          <ProfileItem icon={<IconUser size={18} />} label="Personal Information" />
+          <Divider color="rgba(255, 255, 255, 0.08)" />
+          <ProfileItem icon={<IconBook size={18} />} label="My Courses" />
+          <Divider color="rgba(255, 255, 255, 0.08)" />
+          <ProfileItem icon={<IconMessageCircle size={18} />} label="Practice History" />
         </div>
 
-        <div className="profile-section">
-          <div className="section-header">
-            <span className="section-title">Notifications</span>
-            <Switch color="orange" />
+        <div className="premium-card">
+          <div className="card-header">
+            <span className="card-title">Notifications</span>
+            <Switch color="indigo" size="md" />
           </div>
 
-          <ProfileItem icon={<IconBell size={20} />} label="Daily Reminder" />
+          <Divider color="rgba(255, 255, 255, 0.08)" />
+          <ProfileItem icon={<IconBell size={18} />} label="Daily Reminder" />
         </div>
+
+        <button className="logout-button" onClick={logout} type="button">
+          <IconLogout size={18} />
+          Log out
+        </button>
       </div>
+
+      <ButtonsNavigation />
     </div>
   );
 }

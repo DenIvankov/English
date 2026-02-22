@@ -1,79 +1,43 @@
-/* =========================
-   BOTTOM NAVIGATION
-========================= */
+:root {
+  --nav-mobile-height: 78px;
+  --nav-desktop-height: 80px;
+}
 
 .buttonsContainer {
   position: fixed;
+  inset-inline: 0;
   bottom: 0;
-  left: 0;
-  width: 100%;
-
-  background: #567eb2;
-
-  box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.08);
-  padding: 0 8px 8px 8px;
-
+  height: var(--nav-mobile-height);
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  gap: 6px;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
+  z-index: 1200;
 
-  z-index: 1000;
+  background: rgba(8, 12, 24, 0.85);
+  backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 -12px 30px rgba(0, 0, 0, 0.45);
 }
-
-.buttonsContainer::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: #ccc;
-}
-
-/* Чтобы контент не перекрывался */
-.mobileSpacer {
-  height: 76px;
-}
-
-/* =========================
-   BUTTON STYLE
-========================= */
 
 .navButton,
 .navButton.mantine-Button-root {
   flex: 1 1 0;
-  min-width: 56px;
-  height: 60px;
-  padding: 8px 4px;
-
-  border: none;
-  background: transparent;
-  border-radius: 15px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-
-  font-size: 11px;
-  font-weight: 500;
-  color: #f9fafb;
-
+  height: 56px;
+  border-radius: 14px;
+  color: rgba(255, 255, 255, 0.7);
   transition:
-    background 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-    transform 0.1s ease;
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.12s ease,
+    box-shadow 0.2s ease;
 }
 
 .navButton svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
-}
-
-.navButton:active {
-  transform: scale(0.95);
 }
 
 .mantine-Button-root .mantine-Button-label {
@@ -83,107 +47,52 @@
   align-items: center;
   gap: 4px;
   width: 100%;
+  font-size: 11px;
+  font-weight: 600;
 }
 
-/* =========================
-   MOBILE 320px+
-========================= */
-
-@media (min-width: 320px) {
-  .buttonsContainer {
-    padding: 6px 6px;
-    gap: 4px;
-  }
-
-  .navButton,
-  .navButton.mantine-Button-root {
-    min-width: 52px;
-    height: 56px;
-    font-size: 10px;
-  }
-
-  .navButton svg {
-    width: 20px;
-    height: 20px;
-  }
+.navButton:hover,
+.navButton:focus-visible {
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
 }
 
-/* =========================
-   MOBILE 375px+
-========================= */
-
-@media (min-width: 375px) {
-  .buttonsContainer {
-    padding: 8px 8px;
-    gap: 6px;
-  }
-
-  .navButton,
-  .navButton.mantine-Button-root {
-    min-width: 56px;
-    height: 60px;
-    font-size: 11px;
-  }
-
-  .navButton svg {
-    width: 22px;
-    height: 22px;
-  }
+.navButton:active {
+  transform: translateY(1px);
 }
 
-/* =========================
-   TABLET+
-========================= */
+.navButton.is-active,
+.navButton.is-active:hover,
+.navButton.is-active:focus-visible {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  color: #ffffff;
+  box-shadow: 0 10px 24px rgba(79, 70, 229, 0.45);
+}
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .buttonsContainer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-
-    border-top: none;
-    box-shadow: none;
-    padding: 16px 24px;
+    top: 0;
+    bottom: auto;
+    height: var(--nav-desktop-height);
     justify-content: center;
-    gap: 12px;
-    background: #567eb2;
-  }
-
-  .mobileSpacer {
-    display: none;
+    padding: 12px 28px;
+    border-top: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
   }
 
   .navButton,
   .navButton.mantine-Button-root {
     flex: 0 0 auto;
-    min-width: 90px;
-    height: 64px;
-    background: transparent;
-    box-shadow: none;
+    min-width: 120px;
+    height: 52px;
+    padding: 0 20px;
+    border-radius: 12px;
   }
 
-  .navButton:hover {
-    background: #e2e2e4;
-    color: #1f2937;
-  }
-}
-
-/* =========================
-   DESKTOP
-========================= */
-
-@media (min-width: 1200px) {
-  .buttonsContainer {
-    position: static;
-
-    background: #567eb2;
-  }
-
-  .navButton,
-  .navButton.mantine-Button-root {
-    min-width: 110px;
-    height: 68px;
-    font-size: 16px;
+  .mantine-Button-root .mantine-Button-label {
+    flex-direction: row;
+    gap: 8px;
+    font-size: 14px;
   }
 }

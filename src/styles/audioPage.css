@@ -1,14 +1,12 @@
-.main-page {
+.audio-page {
   min-height: 100dvh;
   position: relative;
   overflow-x: hidden;
   isolation: isolate;
-  padding: 20px;
-  padding-bottom: calc(var(--nav-mobile-height, 78px) + 22px);
-
+  padding: 16px;
+  padding-bottom: calc(var(--nav-mobile-height, 78px) + 20px);
   font-family:
     -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-
   background: radial-gradient(
     ellipse at bottom,
     #0b1120 0%,
@@ -17,13 +15,12 @@
   );
 }
 
-.main-page::before {
+.audio-page::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-
   background:
     radial-gradient(
       800px at 20% 30%,
@@ -36,23 +33,20 @@
       transparent 60%
     ),
     radial-gradient(700px at 50% 80%, rgba(59, 130, 246, 0.14), transparent 60%);
-
   filter: blur(80px);
 }
 
-.main-page__shell {
+.audio-page__shell {
   position: relative;
   z-index: 1;
-  width: min(960px, 100%);
+  width: min(1200px, 100%);
   margin: 0 auto;
-
   display: grid;
-  gap: 16px;
+  gap: 14px;
 }
 
-.main-page__hero,
-.main-panel,
-.main-widget {
+.audio-page__hero,
+.audio-panel {
   border-radius: 22px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(17, 25, 40, 0.7);
@@ -62,11 +56,11 @@
     inset 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
-.main-page__hero {
-  padding: 24px;
+.audio-page__hero {
+  padding: 22px;
 }
 
-.main-page__eyebrow {
+.audio-page__eyebrow {
   margin: 0;
   color: #a5b4fc;
   font-size: 13px;
@@ -75,82 +69,52 @@
   text-transform: uppercase;
 }
 
-.main-page__hero h1 {
+.audio-page__hero h1 {
   margin: 10px 0 8px;
+  color: #fff;
   font-size: clamp(24px, 4vw, 34px);
-  line-height: 1.2;
-  color: #ffffff;
 }
 
-.main-page__hero p {
+.audio-page__hero p {
   margin: 0;
   color: rgba(255, 255, 255, 0.75);
-  max-width: 56ch;
 }
 
-.main-page__grid {
+.audio-page__main {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 12px;
 }
 
-.main-widget {
-  padding: 16px;
+.audio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
 }
 
-.main-widget__label {
-  margin: 0;
-  color: rgba(255, 255, 255, 0.65);
-  font-size: 13px;
+.audio-panel {
+  min-height: 180px;
 }
 
-.main-widget__value {
-  margin: 8px 0 0;
-  color: #ffffff;
-  font-size: clamp(22px, 3vw, 30px);
-  font-weight: 700;
+.audio-panel--wide {
+  min-height: 240px;
 }
 
-.main-panel {
-  padding: 20px;
-}
-
-.main-panel h2 {
-  margin: 0 0 12px;
-  color: #ffffff;
-  font-size: 18px;
-}
-
-.main-panel ul {
-  margin: 0;
-  padding-left: 18px;
-  color: rgba(255, 255, 255, 0.82);
-}
-
-.main-panel li + li {
-  margin-top: 8px;
-}
-
-@media (max-width: 768px) {
-  .main-page {
-    padding: 16px;
-    padding-bottom: calc(var(--nav-mobile-height, 78px) + 20px);
-  }
-
-  .main-page__grid {
+@media (max-width: 900px) {
+  .audio-grid {
     grid-template-columns: 1fr;
   }
+}
 
-  .main-page__hero,
-  .main-panel,
-  .main-widget {
-    border-radius: 18px;
+@media (max-width: 767px) {
+  .audio-page {
+    padding: 12px;
+    padding-bottom: calc(var(--nav-mobile-height, 78px) + 16px);
   }
 }
 
 @media (min-width: 1024px) {
-  .main-page {
-    padding-top: calc(var(--nav-desktop-height, 80px) + 24px);
-    padding-bottom: 24px;
+  .audio-page {
+    padding-top: calc(var(--nav-desktop-height, 80px) + 20px);
+    padding-bottom: 20px;
   }
 }

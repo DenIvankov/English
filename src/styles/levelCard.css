@@ -15,8 +15,11 @@
 ========================= */
 
 .level-card {
+  position: relative;
+  overflow: hidden;
   border-radius: clamp(12px, 2vw, 16px);
   padding: clamp(8px, 2vw, 12px);
+  border: 1px solid rgba(255, 255, 255, 0.26);
   color: white;
 
   display: flex;
@@ -29,14 +32,62 @@
 
   box-sizing: border-box;
 
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 14px 30px rgba(7, 10, 20, 0.3),
+    0 4px 10px rgba(7, 10, 20, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2);
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease;
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.level-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      150px 80px at 90% -10%,
+      rgba(255, 255, 255, 0.42),
+      transparent 70%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.14),
+      rgba(255, 255, 255, 0.02) 40%,
+      transparent 100%
+    );
+  pointer-events: none;
+}
+
+.level-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.12) 0 1px,
+      transparent 1px 12px
+    ),
+    radial-gradient(
+      220px 130px at -10% 110%,
+      rgba(255, 255, 255, 0.2),
+      transparent 72%
+    );
+  mix-blend-mode: soft-light;
+  opacity: 0.34;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+    inset 0 12px 24px rgba(255, 255, 255, 0.08);
+  pointer-events: none;
+  animation: cardPatternShift 9s ease-in-out infinite alternate;
 }
 
 .level-card--light {
   color: #333;
+  border-color: rgba(255, 255, 255, 0.6);
 }
 
 .level-card--light .level-card__header {
@@ -45,7 +96,17 @@
 
 .level-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.38);
+  box-shadow:
+    0 24px 44px rgba(7, 10, 20, 0.42),
+    0 10px 20px rgba(7, 10, 20, 0.25),
+    0 0 30px rgba(255, 255, 255, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.28);
+  filter: saturate(1.08);
+}
+
+.level-card:hover::after {
+  opacity: 0.48;
 }
 
 /* =========================
@@ -53,6 +114,8 @@
 ========================= */
 
 .level-card__header {
+  position: relative;
+  z-index: 1;
   margin-bottom: clamp(4px, 1vw, 8px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   padding-bottom: clamp(4px, 1vw, 8px);
@@ -83,6 +146,8 @@
 ========================= */
 
 .level-card__list {
+  position: relative;
+  z-index: 1;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -93,10 +158,35 @@
 }
 
 .level-card__list li {
+  position: relative;
   margin-bottom: 2px;
-  padding-left: 2px;
+  padding-left: 16px;
   word-wrap: break-word;
   overflow-wrap: break-word;
+}
+
+.level-card__list li::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  top: 6px;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.level-card--light .level-card__list li::before {
+  background: rgba(17, 24, 39, 0.82);
+}
+
+@keyframes cardPatternShift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(6px, -4px, 0) scale(1.03);
+  }
 }
 
 /* =========================
@@ -112,5 +202,11 @@
 @media (max-width: 560px) {
   .levels-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .level-card::after {
+    animation: none;
   }
 }

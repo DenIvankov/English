@@ -7,33 +7,36 @@ function Authorization() {
   const [activeTab, setActiveTab] = useState<"login" | "register">("login");
 
   return (
-    <div className="authorization-container">
-      <div className="authorization-window">
-        <h2 className="authorization-title">
-          Today is a good day to speak English :)
-        </h2>
+    <div className="auth-page">
+      <div className="auth-container">
+        <div className="auth-card">
+          <div className="auth-header">
+            <h1 className="auth-title">Speak English with Confidence</h1>
+          </div>
 
-        <div className="tabs">
-          <button
-            className={`tab ${activeTab === "login" ? "active" : ""}`}
-            onClick={() => setActiveTab("login")}
-          >
-            Login
-          </button>
-          <button
-            className={`tab ${activeTab === "register" ? "active" : ""}`}
-            onClick={() => setActiveTab("register")}
-          >
-            Registration
-          </button>
-        </div>
+          <div className="auth-tabs">
+            <button
+              className={`auth-tab ${activeTab === "login" ? "active" : ""}`}
+              onClick={() => setActiveTab("login")}
+            >
+              Login
+            </button>
 
-        <div className="forms-container">
-          {activeTab === "login" ? (
-            <LoginForm onRegisterClick={() => setActiveTab("register")} />
-          ) : (
-            <RegistrationForm onLoginClick={() => setActiveTab("login")} />
-          )}
+            <button
+              className={`auth-tab ${activeTab === "register" ? "active" : ""}`}
+              onClick={() => setActiveTab("register")}
+            >
+              Registration
+            </button>
+          </div>
+
+          <div className="auth-form-wrapper">
+            {activeTab === "login" ? (
+              <LoginForm onRegisterClick={() => setActiveTab("register")} />
+            ) : (
+              <RegistrationForm onLoginClick={() => setActiveTab("login")} />
+            )}
+          </div>
         </div>
       </div>
     </div>

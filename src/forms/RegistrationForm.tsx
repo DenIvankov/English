@@ -1,22 +1,19 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registrationSchema } from "../validation/registrationSchema";
 import type { RegistrationSchemaType } from "../validation/registrationSchema";
 import { authStore } from "../store/authStore";
-import { useNavigate } from "react-router";
 
 interface RegistrationFormProps {
   onLoginClick?: () => void;
 }
 
 function RegistrationForm({ onLoginClick }: RegistrationFormProps) {
-  const navigate = useNavigate();
   const { registration } = authStore();
   const handleRegistrationSubmit = async (data: RegistrationSchemaType) => {
     await registration(data.email, data.password);
-    navigate("/main");
   };
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -124,3 +121,4 @@ function RegistrationForm({ onLoginClick }: RegistrationFormProps) {
 }
 
 export default RegistrationForm;
+

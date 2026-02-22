@@ -1,4 +1,6 @@
-import React from "react";
+import { useState } from "react";
+import Words from "../Words";
+import { wordsStore } from "../../store/wordsStore";
 
 export type LevelCardType = {
   level: string;
@@ -12,27 +14,41 @@ type LevelCardsProps = {
 };
 
 function LevelCards({ cards }: LevelCardsProps) {
-  return (
-    <div className="levels-grid">
-      {cards.map((e, index) => (
-        <div
-          key={index}
-          className={`level-card ${index === 5 ? "level-card--light" : ""}`}
-          style={{ background: e.color }}
-        >
-          <div className="level-card__header">
-            <span className="level-card__level">{e.level}</span>
-            <span className="level-card__title">{e.title}</span>
-          </div>
+  const { currentLevel, setCurrentLevel } = wordsStore();
 
-          <ul className="level-card__list">
-            {e.items.map((item, i) => (
-              <li key={i}>✓ {item}</li>
-            ))}
-          </ul>
+  return (
+    <>
+      {!currentLevel ? (
+        <div className="levels-grid">
+          {cards.map((e, index) => (
+            <div
+              onClick={() => {
+                const levelButton = index + 1;
+                setCurrentLevel(levelButton);
+              }}
+              key={index}
+              className={`level-card ${index === 5 ? "level-card--light" : ""}`}
+              style={{ background: e.color }}
+            >
+              <div className="level-card__header">
+                <span className="level-card__level">{e.level}</span>
+                <span className="level-card__title">{e.title}</span>
+              </div>
+
+              <ul className="level-card__list">
+                {e.items.map((item, i) => (
+                  <li key={i}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      ) : (
+        <div className="words-page__words">
+          <Words />
+        </div>
+      )}
+    </>
   );
 }
 

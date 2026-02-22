@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "../styles/authorization.css";
 import { IconLockQuestion } from "@tabler/icons-react";
-import { authStore } from "../store/authStore";
-import { useNavigate } from "react-router";
 
 type IsActiveType = "mylogin" | "registration";
 type ColoreTextFaultType = {
@@ -14,22 +12,14 @@ type ColoreTextFaultType = {
 };
 
 function Test() {
-  const navigate = useNavigate();
-  const { registration } = authStore();
-  const { login } = authStore();
-
-  const [isActive, setIsActiv] = useState<IsActiveType>("mylogin");
-  const [coloreTextFault, setColoreTextFault] = useState<ColoreTextFaultType>({
+  const [isActive] = useState<IsActiveType>("mylogin");
+  const [coloreTextFault] = useState<ColoreTextFaultType>({
     mylogin: false,
     myPassword: false,
     email: false,
     newPassword: false,
     repeatNewPassword: false,
   });
-
-  const isValidEmail = (email: string) => {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
 
   return (
     <div className="modal_container">
@@ -47,7 +37,6 @@ function Test() {
         </div>
 
         <div className="forms_wrapper">
-          {/* LOGIN */}
           <div
             className={`form ${isActive === "mylogin" ? "active_form" : ""}`}
           >
@@ -67,7 +56,6 @@ function Test() {
             </div>
           </div>
 
-          {/* REGISTRATION */}
           <div
             className={`form ${
               isActive === "registration" ? "active_form" : ""
