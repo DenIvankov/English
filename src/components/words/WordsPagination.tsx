@@ -6,6 +6,7 @@ type WordsPaginationProps = {
   onPrev: () => void;
   onNext: () => void;
   onSelect: (page: number) => void;
+  showMeta?: boolean;
 };
 
 function WordsPagination({
@@ -15,6 +16,7 @@ function WordsPagination({
   onPrev,
   onNext,
   onSelect,
+  showMeta = true,
 }: WordsPaginationProps) {
   return (
     <div className="words-pagination">
@@ -57,9 +59,11 @@ function WordsPagination({
         Next
       </button>
 
-      <span className="pagination__meta">
-        Page {currentPage} of {Math.max(totalPages, 1)}
-      </span>
+      {showMeta ? (
+        <span className="pagination__meta">
+          Page {currentPage} of {Math.max(totalPages, 1)}
+        </span>
+      ) : null}
     </div>
   );
 }

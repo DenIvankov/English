@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { IconPlayerPlayFilled, IconRepeat } from "@tabler/icons-react";
 
 type WordAudioProps = {
   audio: string;
@@ -31,6 +32,7 @@ function WordAudio({
     if (!audioRef.current) {
       audioRef.current = new Audio();
     }
+
     const audioPlayer = audioRef.current;
     audioPlayer.pause();
     audioPlayer.currentTime = 0;
@@ -41,8 +43,12 @@ function WordAudio({
         setPlayedMain(true);
       }
     };
+
     setActive(path);
-    void audioPlayer.play();
+    void audioPlayer.play().catch(() => {
+      setActive(null);
+    });
+
     if (path !== audio) {
       setPlayedMain(false);
     }
@@ -54,17 +60,26 @@ function WordAudio({
         type="button"
         onClick={() => playAudio(audio)}
         className={`word-audio__primary ${active === audio ? "is-playing" : ""}`}
+        disabled={!audio}
       >
         <span className="word-audio__icon" aria-hidden="true">
-          {playedMain ? "↻" : "▶"}
+          {playedMain ? (
+            <IconRepeat size={14} stroke={2.2} />
+          ) : (
+            <IconPlayerPlayFilled size={12} />
+          )}
         </span>
-        {playedMain ? "Repeat audio" : "Play audio"}
+        <span className="word-audio__label">
+          {playedMain ? "Repeat audio" : "Play audio"}
+        </span>
       </button>
+
       <div className="word-audio__secondary">
         <button
           type="button"
           onClick={() => playAudio(audioMeaning)}
           className={active === audioMeaning ? "is-playing" : undefined}
+          disabled={!audioMeaning}
         >
           Meaning
         </button>
@@ -72,6 +87,7 @@ function WordAudio({
           type="button"
           onClick={() => playAudio(audioExample)}
           className={active === audioExample ? "is-playing" : undefined}
+          disabled={!audioExample}
         >
           Example
         </button>

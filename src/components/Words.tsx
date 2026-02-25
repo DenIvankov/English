@@ -57,10 +57,21 @@ function Words() {
   }, [currentLevel, currentPage, getWords]);
 
   const [hiddenIds, setHiddenIds] = useState<Record<number, boolean>>({});
+  const [showTopPagination, setShowTopPagination] = useState(false);
 
   useEffect(() => {
     setHiddenIds({});
   }, [currentLevel, filterMode]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowTopPagination(window.scrollY > 260);
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const filteredWords = useMemo(() => {
     const query = searchValue.trim().toLowerCase();
@@ -196,28 +207,6 @@ function Words() {
           </p>
         </div>
 
-        {filterMode === "favorites" ? (
-          <button
-            type="button"
-            className="words-toolbar__trash"
-            onClick={handleClearFavorites}
-            title="Clear favorites"
-            aria-label="Clear favorites"
-          >
-            <IconTrash size={18} stroke={2} aria-hidden="true" />
-          </button>
-        ) : null}
-        {filterMode === "learned" ? (
-          <button
-            type="button"
-            className="words-toolbar__trash"
-            onClick={handleClearLearned}
-            title="Clear learned"
-            aria-label="Clear learned"
-          >
-            <IconTrash size={18} stroke={2} aria-hidden="true" />
-          </button>
-        ) : null}
         <div className="words-toolbar__search">
           <input
             className="words-search__input"
@@ -242,6 +231,28 @@ function Words() {
         </div>
 
         <div className="words-toolbar__actions">
+          {filterMode === "favorites" ? (
+            <button
+              type="button"
+              className="words-toolbar__trash"
+              onClick={handleClearFavorites}
+              title="Clear favorites"
+              aria-label="Clear favorites"
+            >
+              <IconTrash size={18} stroke={2} aria-hidden="true" />
+            </button>
+          ) : null}
+          {filterMode === "learned" ? (
+            <button
+              type="button"
+              className="words-toolbar__trash"
+              onClick={handleClearLearned}
+              title="Clear learned"
+              aria-label="Clear learned"
+            >
+              <IconTrash size={18} stroke={2} aria-hidden="true" />
+            </button>
+          ) : null}
           <WordsFilters
             mode={filterMode}
             onChange={setFilterMode}
@@ -256,6 +267,23 @@ function Words() {
             Change level
           </button>
         </div>
+      </div>
+
+      <div
+        className={`words-pagination__top-float ${
+          showTopPagination && totalPages > 1 ? "is-visible" : ""
+        }`}
+        aria-hidden={!showTopPagination || totalPages <= 1}
+      >
+        <WordsPagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          pages={pages}
+          onPrev={prevPage}
+          onNext={nextPage}
+          onSelect={setCurrentPage}
+          showMeta={false}
+        />
       </div>
 
       {errors ? <p className="words__error">{errors}</p> : null}
